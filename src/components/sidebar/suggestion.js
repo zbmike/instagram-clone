@@ -6,7 +6,7 @@ import { useEffect } from "react/cjs/react.development";
 import SuggestedProfiles from './suggested-profile';
 import { getSuggestedProfiles } from "../../services/firebase";
 
-export default function Suggestion({ userId, following }) {
+export default function Suggestion({ userId, following, loggedInUserDocId }) {
   const [profiles, setProfiles] = useState(null);
 
   useEffect(() => {
@@ -30,10 +30,11 @@ export default function Suggestion({ userId, following }) {
         {profiles.map((profile) => (
           <SuggestedProfiles
             key={profile.docId}
-            userDocId={profile.docId}
+            profileDocId={profile.docId}
             username={profile.username}
             profileId={profile.userId}
             userId={userId}
+            loggedInUserDocId={loggedInUserDocId}
           />
         ))}
       </div>
@@ -43,5 +44,6 @@ export default function Suggestion({ userId, following }) {
 
 Suggestion.propTypes = {
   userId: PropTypes.string,
+  loggedInUserDocId: PropTypes.string,
   following: PropTypes.array,
 };
