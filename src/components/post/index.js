@@ -4,21 +4,29 @@ import Header from "./header";
 import Image from "./image";
 import Actions from "./actions";
 import Footer from "./footer";
+import Comments from "./comments";
 
 export default function Post({ content }) {
-  const commentsInput = useRef(null);
+  const commentInput = useRef(null);
 
-  const handleFocus = () => commentsInput.current.focus();
+  const handleFocus = () => commentInput.current.focus();
   return (
     <div className="rounded col-span-4 border bg-white border-gray-primary mb-8">
       <Header username={content.username} />
       <Image src={content.imageSrc} caption={content.caption} />
-      <Actions docId={content.docId}
+      <Actions
+        docId={content.docId}
         totalLikes={content.likes.length}
         likedPhoto={content.userLikedPhoto}
         handleFocus={handleFocus}
       />
       <Footer caption={content.caption} username={content.username} />
+      <Comments
+        docId={content.docId}
+        comments={content.comments}
+        posted={content.dateCreated}
+        commentInput={commentInput}
+      />
     </div>
   );
 }
