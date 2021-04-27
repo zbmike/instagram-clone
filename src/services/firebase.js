@@ -19,3 +19,13 @@ export async function getUserByUserId (userId) {
 
     return user;
 }
+
+export async function getSuggestedProfiles(userId, following) {
+    const result = await firebase
+        .firestore().collection('users').where('userId', '!=', userId).limit(10).get();
+
+    const suggests = result.docs.map((user) => ({ ...user.data(), docId: user.id}))
+      .filter((profile) => profile.userId !== userId && !following.includes(profile.userId));
+      
+    return suggests;
+}
