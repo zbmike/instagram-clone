@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import Skeleton from "react-loading-skeleton";
 import Header from "./header";
 import { getUserPhotosByUsername } from "../../services/firebase";
+import Photos from "./photos";
 
 const reducer = (state, newState) => ({
   ...state,
@@ -40,6 +41,7 @@ export default function UserProfile({ user }) {
         followerCount={followerCount}
         setFollowerCount={dispatch}
       />
+      <Photos photos={photosCollection}/>
     </>
   );
 }
