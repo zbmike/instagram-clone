@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import FirebaseContext from "../context/firebase";
-import * as ROUTES from '../constants/routes';
+import * as ROUTES from "../constants/routes";
 
 export default function Login() {
   const history = useHistory();
@@ -14,14 +14,27 @@ export default function Login() {
   const isInvalid = password === "" || emailAddress === "";
   const handleLogin = async (event) => {
     event.preventDefault();
-    
+
     try {
-        await firebase.auth().signInWithEmailAndPassword(emailAddress, password);
-        history.push(ROUTES.DASHBOARD);
+      await firebase.auth().signInWithEmailAndPassword(emailAddress, password);
+      history.push(ROUTES.DASHBOARD);
     } catch (error) {
-        setEmailAdress('');
-        setPassword('');
-        setError(error.message);
+      setEmailAdress("");
+      setPassword("");
+      setError(error.message);
+    }
+  };
+
+  const handleDemoLogin = async (event) => {
+    event.preventDefault();
+
+    try {
+      await firebase
+        .auth()
+        .signInWithEmailAndPassword("zbmanhe@gmail.com", "Qwe97531");
+      history.push(ROUTES.DASHBOARD);
+    } catch (error) {
+      setError(error.message);
     }
   };
 
@@ -74,6 +87,14 @@ export default function Login() {
               }`}
             >
               Login
+            </button>
+
+            <button
+              type="button"
+              onClick={handleDemoLogin}
+              className={`bg-blue-medium text-white w-full rounded h-8 font-bold mt-2`}
+            >
+              Demo Login
             </button>
           </form>
         </div>
